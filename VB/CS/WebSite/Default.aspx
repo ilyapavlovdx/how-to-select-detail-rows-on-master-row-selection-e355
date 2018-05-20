@@ -1,15 +1,15 @@
-<%-- BeginRegion Page setup --%>
+﻿<%-- BeginRegion Page setup --%>
 <%@ Page Language="vb" AutoEventWireup="true" CodeFile="Default.aspx.vb" Inherits="Grid_MasterDetail_SelectDetailRows_Default" %>
-<%@ Register Assembly="DevExpress.Web.ASPxGridView.v8.1" Namespace="DevExpress.Web.ASPxGridView" TagPrefix="dxwgv" %>
-<%@ Register Assembly="DevExpress.Web.ASPxEditors.v8.1" Namespace="DevExpress.Web.ASPxEditors" TagPrefix="dxe" %>
+<%@ Register Assembly="DevExpress.Web.v13.1" Namespace="DevExpress.Web.ASPxGridView" TagPrefix="dxwgv" %>
+<%@ Register Assembly="DevExpress.Web.v13.1" Namespace="DevExpress.Web.ASPxEditors" TagPrefix="dxe" %>
 <%-- EndRegion --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head runat="server">
-	<title>How to select detail rows on master row selection</title>
+    <title>How to select detail rows on master row selection</title>
 </head>
 <body>
-	<form id="form1" runat="server">
+    <form id="form1" runat="server">
 		<script type="text/javascript">
 			function master_RowSelecting(index, state) {
 				master.PerformCallback("select|" + index + "|" + (state ? "T" : ""));
@@ -24,7 +24,7 @@
 					<DataItemTemplate>
 						<input type="checkbox"
 							onclick="master_RowSelecting(<%#Container.VisibleIndex%>, checked)" 
-							<%#IIf(master.Selection.IsRowSelected(Container.VisibleIndex), "checked=""checked""", "")%> />
+							<%#If(master.Selection.IsRowSelected(Container.VisibleIndex), "checked=""checked""", "")%> />
 					</DataItemTemplate>
 				</dxwgv:GridViewDataColumn>
 				<%-- EndRegion --%>
@@ -57,14 +57,14 @@
 
 		<%-- BeginRegion DataSources --%>
 		<asp:AccessDataSource ID="masterData" runat="server" DataFile="~/App_Data/nwind.mdb"
-			SelectCommand="SELECT [CategoryID], [CategoryName] FROM [Categories]"></asp:AccessDataSource>            
+			SelectCommand="SELECT [CategoryID], [CategoryName] FROM [Categories]"></asp:AccessDataSource>			
 		<asp:AccessDataSource ID="detailData" runat="server" DataFile="~/App_Data/nwind.mdb"
 			SelectCommand="SELECT [ProductID], [ProductName], [UnitPrice] FROM [Products] WHERE CategoryID = ?">
-			<SelectParameters>                
-				<asp:Parameter Name="CategoryID" />                
+			<SelectParameters>				
+				<asp:Parameter Name="CategoryID" />				
 			</SelectParameters>
 		</asp:AccessDataSource>
-		<%-- EndRegion --%>            
-	</form>
+		<%-- EndRegion --%>			
+    </form>
 </body>
 </html>
